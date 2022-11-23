@@ -1,0 +1,23 @@
+#Stages for deployment
+stages:
+    - pull-new-commit
+    - build-container
+    - deploy-container
+
+pull-new-commit:
+  stage: pull-new-commit
+  script:
+    - echo "Pulling new commits"
+    - ssh atnog@10.0.12.115 "cd ~/git/ml_models; git pull;"
+
+build-container:
+    stage: build-container
+    script:
+        - echo "Building new image on latest commit"
+        - ssh atnog@10.0.12.115 "cd ~/git/ml_models/simulator_predictor; sudo docker build -t sdrt/ml_models:$CI_COMMIT_SHORT_SHA .;"
+
+deploy-container:
+    stage: deploy-container
+    script:
+        - echo "Stopping and removing current container"
+        - ssh atnog@10.0.12.115 "sudo docker stop ml_models; sudo docker rm ml_models; sudo docker run -d --name=ml_models sdrt/ml_models:$CI_COMMIT_SHORT_SHA"
