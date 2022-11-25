@@ -1,4 +1,5 @@
+.sdrt_venv
 .venv
 .vscode
 *.DS_Store
-uji
+simulator_predictor/pycache

@@ -3,10 +3,7 @@
 This repository includes machine learning modules for the SDRT project.
 It contains 2 main directories:
 
-uji - ML techniques for positioning prediction of tags in a multi building and floor environment. It is based on the UJIIndoorLoc database, created in the Universitat Jaume I. More info here:
-https://archive.ics.uci.edu/ml/datasets/ujiindoorloc
-
-simulator_predictor - ML techniques based on the SDRT simulator. It contains python scripts for model training, stored in the corresponding location directory and a python script "predictor.py" that contains a MQTT agent responsible for communicating with the simulator and predict the location of assets based on their rssi values and the previously trained ml models.
+src - ML techniques based on the SDRT simulator. It contains python scripts for model training, stored in the corresponding location directory and a python script "predictor.py" that contains a MQTT agent responsible for communicating with the simulator and predict the location of assets based on their rssi values and the previously trained ml models.
 
 By default, the predictor.py script will make predictions based on the models stored in the "somos_saude" dir but this could be changed by running with --models "name of another folder": python3 predictor.py --models it
 
@@ -28,7 +25,7 @@ It implies the creation of a virtual environment (venv) whose dependencies come 
 - create .venv directory: > ```python3 -m venv .venv```
 - activate .venv: > ```source .venv/bin/activate```
 - install dependencies on .venv from requirements.txt: > ```pip install -r requirements.txt```
-- generate documentation using pdoc: > ```pdoc --math -d google -o docs predictor.py```
+- generate documentation using pdoc: > ```pdoc --math -d google -o docs src/predictor.py```
 
 ---
 
@@ -48,7 +45,7 @@ pull-new-commit:
 build-container: 
 - This stage must print a message "Building new image on latest commit", change directory, build docker image with last commit: \
     - echo "Building new image on latest commit" \
-    - ssh atnog@10.0.12.115 "cd ~/git/ml_models/simulator_predictor; sudo docker build -t sdrt/ml_models:$CI_COMMIT_SHORT_SHA .;"
+    - ssh atnog@10.0.12.115 "cd ~/git/ml_models/src; sudo docker build -t sdrt/ml_models:$CI_COMMIT_SHORT_SHA .;"
 
 
 deploy-container: 
