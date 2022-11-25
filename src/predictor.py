@@ -10,7 +10,6 @@
 
 """
 
-from operator import indexOf
 import random
 import paho.mqtt.client as mqtt 
 import math
@@ -530,11 +529,11 @@ def main():
     models_based_on_experiments = False # SWITCH MODELS
     for alg in algorithms:
         if models_based_on_experiments:
-            models_dict[alg] = pickle.load(open("activ_models/"+alg+".sav", 'rb')) # based on experiments
+            models_dict[alg] = pickle.load(open("./src/activ_models/"+alg+".sav", 'rb')) # based on experiments
         else:
-            # models_dict[alg] = pickle.load(open("activ_sim_models/"+alg+"_activ_sim.sav", 'rb')) # based on simulator
-            models_dict[alg] = pickle.load(open("activ_sim_models/"+alg+"_activ_sim_calc_dist.sav", 'rb'))
-        models_anchors_dict[alg] = pickle.load(open("activ_sim_models/"+alg+"_activ_dif_antenna4_sim_calc_dist.sav", 'rb')) # based on simulator
+            # models_dict[alg] = pickle.load(open("./src/activ_sim_models/"+alg+"_activ_sim.sav", 'rb')) # based on simulator
+            models_dict[alg] = pickle.load(open("./src/activ_sim_models/"+alg+"_activ_sim_calc_dist.sav", 'rb'))
+        models_anchors_dict[alg] = pickle.load(open("./src/activ_sim_models/"+alg+"_activ_dif_antenna4_sim_calc_dist.sav", 'rb')) # based on simulator
 
     # turn-on the worker thread
     threading.Thread(target=worker, daemon=True).start()
