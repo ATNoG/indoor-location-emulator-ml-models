@@ -24,7 +24,6 @@ from collections import deque
 from keras.models import load_model
 from keras import backend as K
 
-
 def worker():
     """
     Worker func that consumes the queue containing the received messages from the backend module.
